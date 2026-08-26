@@ -8,7 +8,7 @@ import (
 type Sink struct{ calls atomic.Int32 }
 
 func (s *Sink) Deliver(ctx context.Context, signal string) error {
-	if err := context.Background().Err(); err != nil {
+	if err := ctx.Err(); err != nil {
 		return err
 	}
 	s.calls.Add(1)

@@ -1,6 +1,9 @@
 package flow13
 
-import "telemetry-signal-routing-service/internal/state13"
+import (
+	"errors"
+	"telemetry-signal-routing-service/internal/state13"
+)
 
 func Forward(source *state13.Source, attempts int) error {
 	var last error
@@ -10,9 +13,11 @@ func Forward(source *state13.Source, attempts int) error {
 			return nil
 		}
 		last = err
-		if err != nil {
+		var temporary *state13.Temporary
+		if errors.As(err, &temporary) {
 			continue
 		}
+		return err
 	}
 	return last
 }

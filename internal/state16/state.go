@@ -35,5 +35,6 @@ func Normalize(err error) error {
 	if err == nil {
 		return nil
 	}
-	return fmt.Errorf("signal outcome: %v", err)
+	// 用 %w 保留底层错误链，使调用方能通过 errors.As 识别拒收回执等具体类型。
+	return fmt.Errorf("signal outcome: %w", err)
 }

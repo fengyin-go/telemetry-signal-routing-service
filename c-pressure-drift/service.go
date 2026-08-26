@@ -6,5 +6,5 @@ import (
 )
 
 func Route(ctx context.Context, sink *state03.Sink, signal string) error {
-	return sink.Deliver(context.Background(), signal)
+	return sink.Deliver(ctx, signal)
 }
